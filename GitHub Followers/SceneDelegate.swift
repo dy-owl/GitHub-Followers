@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds) // The backdrop for your app’s user interface and the object that dispatches events to your views.
         window?.windowScene = windowScene // The scene containing the window.
-        window?.rootViewController = ViewController() // The root view controller for the window.
+        window?.rootViewController = createTabBar() // The root view controller for the window.
         window?.makeKeyAndVisible() // Shows the window and makes it the key window.
     }
 
@@ -52,6 +52,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    func createSearchNavigationController() -> UINavigationController {
+        let searchVC = SearchViewController()
+        
+        searchVC.title = "Search"
+        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        
+        return UINavigationController(rootViewController: searchVC)
+    }
+    
+    func createFavoritesNavigationController() -> UINavigationController {
+        let favoritesVC = FavoritesViewController()
+        
+        favoritesVC.title = "Favorites"
+        favoritesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        
+        return UINavigationController(rootViewController: favoritesVC)
+    }
+    
+    func createTabBar() -> UITabBarController {
+        let tabBar = UITabBarController()
+        UITabBar.appearance().tintColor = .systemGreen
+        tabBar.viewControllers = [createSearchNavigationController(), createFavoritesNavigationController()]
+        
+        return tabBar
+    }
+    
+    
 }
-
